@@ -22,6 +22,9 @@ pipeline {
         stage('Build Image') {
             environment { QUAY = credentials('QUAY_USER') } 
             steps {
+		withCredentials([usernamePassword(credentialsId: 'quay-credentials-id', usernameVariable: 'QUAY_USERNAME', passwordVariable: 'QUAY_PASSWORD')]) {
+    echo "Using credentials for Quay: ${QUAY_USERNAME}"
+    sh 'echo "Credentials loaded"'
                 sh '''
                     ./mvnw quarkus:add-extension \
                     -Dextensions="kubernetes,container-image-jib" 
@@ -37,7 +40,7 @@ pipeline {
                     -Dquarkus.container-image.password="$QUAY_PSW" \
                     -Dquarkus.container-image.push=true
                 '''
-		echo "QUAY_PASSWORD: $QUAY_PSW"
+	}
             }
         }
     }
