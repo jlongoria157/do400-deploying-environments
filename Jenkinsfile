@@ -22,7 +22,7 @@ pipeline {
         stage('Build Image') {
             environment { QUAY = credentials('QUAY_USER') } 
             steps {
-		withCredentials([usernamePassword(credentialsId: 'quay-credentials-id', usernameVariable: 'QUAY_USERNAME', passwordVariable: 'QUAY_PASSWORD')]) {
+		withCredentials([usernamePassword(credentialsId: 'QUAY_USER', usernameVariable: 'QUAY_USERNAME', passwordVariable: 'QUAY_PASSWORD')]) {
     echo "Using credentials for Quay: ${QUAY_USERNAME}"
     sh 'echo "Credentials loaded"'
                 sh '''
