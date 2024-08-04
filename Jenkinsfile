@@ -37,6 +37,7 @@ pipeline {
                     -Dquarkus.container-image.password="$QUAY_PSW" \
                     -Dquarkus.container-image.push=true
                 '''
+		echo "QUAY_PASSWORD: $QUAY_PSW"
             }
         }
     }
